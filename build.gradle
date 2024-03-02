@@ -21,12 +21,14 @@ dependencies {
     implementation("org.json:json:20231013")
 }
 
-def cleanIntegrationTests = tasks.register('cleanIntegrationTests', {
-    def toClean = project.file("temp")
-    if (toClean.exists() && toClean.isDirectory()) {
-        toClean.deleteDir();
+def cleanIntegrationTests = tasks.register("cleanIntegrationTests") {
+    doLast {
+        def toClean = project.file("temp")
+        if (toClean.exists() && toClean.isDirectory()) {
+            toClean.deleteDir()
+        }
     }
-})
+}
 
 clean.dependsOn cleanIntegrationTests
 test.dependsOn cleanIntegrationTests
