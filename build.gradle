@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'com.gradle.plugin-publish' version '1.2.0'
+}
+
+group = 'io.github.langneticus'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation("org.json:json:20231013")
+}
+
+def cleanIntegrationTests = tasks.register('cleanIntegrationTests', {
+    def toClean = project.file("temp")
+    if (toClean.exists() && toClean.isDirectory()) {
+        toClean.deleteDir();
+    }
+})
+
+clean.dependsOn cleanIntegrationTests
+test.dependsOn cleanIntegrationTests
+
+test {
+    systemProperty "integration.test.dir", project.file("temp")
+    include("io/github/langneticus/core/**")
+    include("io/github/langneticus/plugin/**")
+    useJUnitPlatform()
+}
+
+
+gradlePlugin {
+    plugins {
+        langneticusPlugin {
+            id = "io.github.langneticus"
+            implementationClass = "io.github.langneticus.plugin.LangneticusPlugin"
+            displayName = "Langneticus plugin"
+            description = "Generate strong typed internationalization for your gradle java projects"
+        }
+    }
+}
