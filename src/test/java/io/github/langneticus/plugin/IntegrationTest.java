@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTest {
 
-    private final static String PLUGIN_ID = "io.github.langneticus";
+    private final static String PLUGIN_ID = "io.github.ctrlaltdeletemenot.langneticus";
     private final static String TASK_GENERATE_CLASSES = "langneticus";
 
     @Test

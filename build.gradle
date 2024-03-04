@@ -1,9 +1,9 @@
 plugins {
     id 'java'
-    id 'com.gradle.plugin-publish' version '1.2.0'
+    id 'com.gradle.plugin-publish' version '1.2.1'
 }
 
-group = 'io.github.langneticus'
+group = 'io.github.ctrlaltdeletemenot'
 version = '1.0.0'
 
 repositories {
@@ -45,13 +45,16 @@ test {
 }
 
 gradlePlugin {
+    website = "https://github.com/CtrlAltDeleteMeNot/io.github.langneticus"
+    vcsUrl = "https://github.com/CtrlAltDeleteMeNot/io.github.langneticus.git"
     plugins.create("langneticusPlugin", new Action<PluginDeclaration>() {
         @Override
         void execute(PluginDeclaration pluginDeclaration) {
-            pluginDeclaration.id = "io.github.langneticus"
+            pluginDeclaration.id = "io.github.ctrlaltdeletemenot.langneticus"
             pluginDeclaration.implementationClass = "io.github.langneticus.plugin.LangneticusPlugin"
             pluginDeclaration.displayName = "Langneticus plugin"
             pluginDeclaration.description = "Generate strong typed internationalization for your gradle java projects"
+            pluginDeclaration.tags.set(["internationalization", "java", "strong-typed", "localization"])
         }
     })
 }

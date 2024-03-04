@@ -12,10 +12,10 @@ public class PluginTest {
     @Test
     public void success_Applying_Plugin(){
         Project project = ProjectBuilder.builder().build();
-        project.getPluginManager().apply("io.github.langneticus");
+        project.getPluginManager().apply("io.github.ctrlaltdeletemenot.langneticus");
 
         assertTrue(project.getPluginManager()
-                .hasPlugin("io.github.langneticus"));
+                .hasPlugin("io.github.ctrlaltdeletemenot.langneticus"));
 
         final Task generate = project.getTasks().getByName("langneticus");
         assertNotNull(generate);
