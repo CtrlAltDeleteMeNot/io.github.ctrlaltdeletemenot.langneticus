@@ -1,6 +1,10 @@
 # Langneticus gradle plugin
-
-## Usage
+## Compiling the plugin
+In order to prevent committing a jar to repo, maintainers should execute the following command from the root of the project:
+```
+gradle wrapper --warning-mode all
+```
+## Compiling the plugin
 ```
 plugins { 
     id('io.github.langneticus')

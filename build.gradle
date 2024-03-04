@@ -4,21 +4,60 @@ plugins {
 }
 
 group = 'io.github.langneticus'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
 
 repositories {
     mavenCentral()
 }
 
 java {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+tasks {
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+    compileTestJava {
+        options.encoding = "UTF-8"
+    }
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation("org.json:json:20231013")
+    testImplementation platform("org.junit:junit-bom:5.9.1")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    implementation "org.json:json:20231013"
+}
+
+
+test {
+    systemProperty "integration.test.dir", project.file("temp")
+    include("io/github/langneticus/core/**")
+    include("io/github/langneticus/plugin/**")
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    plugins.create("langneticusPlugin", new Action<PluginDeclaration>() {
+        @Override
+        void execute(PluginDeclaration pluginDeclaration) {
+            pluginDeclaration.id = "io.github.langneticus"
+            pluginDeclaration.implementationClass = "io.github.langneticus.plugin.LangneticusPlugin"
+            pluginDeclaration.displayName = "Langneticus plugin"
+            pluginDeclaration.description = "Generate strong typed internationalization for your gradle java projects"
+        }
+    })
+}
+
+wrapper {
+    gradleVersion = '8.6'
 }
 
 def cleanIntegrationTests = tasks.register("cleanIntegrationTests") {
@@ -33,21 +72,3 @@ def cleanIntegrationTests = tasks.register("cleanIntegrationTests") {
 clean.dependsOn cleanIntegrationTests
 test.dependsOn cleanIntegrationTests
 
-test {
-    systemProperty "integration.test.dir", project.file("temp")
-    include("io/github/langneticus/core/**")
-    include("io/github/langneticus/plugin/**")
-    useJUnitPlatform()
-}
-
-
-gradlePlugin {
-    plugins {
-        langneticusPlugin {
-            id = "io.github.langneticus"
-            implementationClass = "io.github.langneticus.plugin.LangneticusPlugin"
-            displayName = "Langneticus plugin"
-            description = "Generate strong typed internationalization for your gradle java projects"
-        }
-    }
-}

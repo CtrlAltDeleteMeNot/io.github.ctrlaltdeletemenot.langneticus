@@ -43,3 +43,8 @@ bin/
 
 ### INTEGRATION TEST DATA ###
 /temp/
+
+### GRADLE BINARIES
+gradle/
+gradlew
+gradlew.bat
