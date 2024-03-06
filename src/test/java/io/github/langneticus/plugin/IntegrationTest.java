@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IntegrationTest {
 
     private final static String PLUGIN_ID = "io.github.ctrlaltdeletemenot.langneticus";
+    private final static String PLUGIN_VERSION = "1.0.1";
     private final static String TASK_GENERATE_CLASSES = "langneticus";
 
     @Test
@@ -206,7 +207,7 @@ public class IntegrationTest {
         final File settingsFile = new File(projectDir, "settings.gradle");
         final File buildFile = new File(projectDir, "build.gradle");
         FileUtil.writeMultibyteString(settingsFile, "");
-        FileUtil.writeMultibyteString(buildFile, "plugins { id('" + PLUGIN_ID + "')}\nlangneticus{\n\tinputJsonFile = project.file(\"I18N_DATA/strings.langneticus.json\")\n\toutDir = project.file(\"GEN\")\n\tpackageName=\"org.langneticus.gen\"\n\tsupportedLanguages="+aTestOptions.languages+"\n\tclassName='Lm'\n}");
+        FileUtil.writeMultibyteString(buildFile, "plugins { id('" + PLUGIN_ID + "') version ('"+PLUGIN_VERSION+"')}\nlangneticus{\n\tinputJsonFile = project.file(\"I18N_DATA/strings.langneticus.json\")\n\toutDir = project.file(\"GEN\")\n\tpackageName=\"org.langneticus.gen\"\n\tsupportedLanguages="+aTestOptions.languages+"\n\tclassName='Lm'\n}");
         //Create json if required
         if (aTestOptions.jsonContent != null) {
             final File jsonDir = new File(projectDir, "I18N_DATA");

@@ -31,7 +31,8 @@ class TemplatedCodeBuilder {
             "            }\n" +
             "            final byte[] output = new byte[outputSize];\n" +
             "            for (int j = 0; j < output.length; j++) {\n" +
-            "                output[j] = BITMAP.get((byte) data[j + startOffset]);\n" +
+            "                final Byte tempByte = BITMAP.get((byte) data[j + startOffset]);\n" +
+            "                output[j] = tempByte == null? 0: tempByte;\n" +
             "            }\n" +
             "            startOffset += output.length;\n" +
             "            values[i] = new String(output, StandardCharsets.UTF_8);\n" +
