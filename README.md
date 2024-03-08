@@ -15,7 +15,7 @@ This ensures that the project uses a specific version of Gradle without committi
 To use the Langneticus Gradle plugin in your project, add the following configuration to your build.gradle file:
 ```
 plugins { 
-    id('io.github.langneticus')
+    id('io.github.ctrlaltdeletemenot.langneticus') version ('1.0.1')
 }
 
 langneticus {
